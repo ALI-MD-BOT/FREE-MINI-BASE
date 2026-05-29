@@ -12,13 +12,13 @@ module.exports = {
     // 1. CONFIGURATION DE BASE (Session & Database)
     // ===========================================================
     SESSION_ID: process.env.SESSION_ID || "MINI BOT", 
-    MONGODB_URI: process.env.MONGODB_URI || 'your mogo db url',
+    MONGODB_URI: process.env.MONGODB_URI || 'mongodb+srv://kamranmd:kamranmd@cluster0.aldbcl4.mongodb.net/?appName=Cluster0',
     
     // ===========================================================
     // 2. INFORMATIONS DU BOT
     // ===========================================================
     PREFIX: process.env.PREFIX || '.',
-    OWNER_NUMBER: process.env.OWNER_NUMBER || 'your number', // Mettez votre numéro ici
+    OWNER_NUMBER: process.env.OWNER_NUMBER || '923450073465', // Mettez votre numéro ici
     BOT_NAME: "YOUR BOT NAME",
     BOT_FOOTER: '© ᴘᴏᴡᴇʀᴇᴅ ʙʏ inconnu boy',
     
