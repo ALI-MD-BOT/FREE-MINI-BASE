@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faizan-Md - Link WhatsApp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-green: #00ff37;
+            --dark-bg: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            /* Linear gradient ko thoda light kiya hai takay original image saaf dikhe */
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+                        url('https://i.ibb.co/0d4YhqX/file-0000000025047207a3389cd5ccefdee9.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        /* Container ko transparent kiya aur blur khatam kiya takay piche ki picture saaf dikhe */
+        .container {
+            background: rgba(0, 0, 0, 0); /* Full transparent */
+            border: 2px solid var(--neon-green);
+            border-radius: 24px;
+            box-shadow: 0 0 30px rgba(0, 255, 55, 0.5);
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            /* backdrop-filter hata diya gaya hai */
+        }
+
+        /* Profile Section compact spacing */
+        .profile-container {
+            margin-bottom: 15px;
+        }
+
+        .avatar-glow {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 55, 0.8);
+            margin: 0 auto 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .avatar-glow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #ff3366 0%, #ffcc00 25%, #33ccff 50%, #33ff66 75%, #a033ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .heart-emoji {
+            -webkit-text-fill-color: initial;
+            font-size: 1.3rem;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+
+        .sub-title {
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,1); /* Shadow barha di takay text readable rahe */
+        }
+
+        /* Social Icons Row compact */
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .social-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            background: rgba(0, 0, 0, 0.6); /* Background thoda dark kiya icon ka */
+        }
+
+        .yt { border: 1.5px solid #ff0000; color: #ff0000; }
+        .fb { border: 1.5px solid #3b5998; color: #3b5998; }
+        .wa { border: 1.5px solid #25d366; color: #25d366; }
+        .gh { border: 1.5px solid #ffffff; color: #ffffff; }
+
+        /* Pair Code Top Box compact */
+        .pair-code-label-box {
+            border: 1px solid rgba(0, 255, 55, 0.4);
+            border-radius: 12px;
+            padding: 10px;
+            color: var(--neon-green);
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .form-label {
+            color: var(--neon-green);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: left;
+            display: block;
+            margin-bottom: 8px;
+            padding-left: 2px;
+            text-shadow: 2px 2px 3px rgba(0,0,0,1);
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-green);
+            font-size: 1rem;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Input field readable rakhne ke liye thoda dark background */
+            border: 1px solid rgba(0, 255, 55, 0.6);
+            border-radius: 10px;
+            color: #ffffff;
+            padding: 12px 12px 12px 38px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        /* Lightning Button Effect */
+        button.generate-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #004d0f 0%, #009921 50%, #00ff37 100%);
+            color: #ffffff;
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            animation: lightning-glow 1.5s infinite alternate;
+        }
+
+        @keyframes lightning-glow {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 55, 0.4), 0 0 5px rgba(255, 255, 255, 0.2);
+                filter: brightness(1);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(0, 255, 55, 0.9), 0 0 15px rgba(255, 255, 255, 0.6);
+                filter: brightness(1.3);
+            }
+            70% {
+                box-shadow: 0 0 12px rgba(0, 255, 55, 0.5), 0 0 5px rgba(255, 255, 255, 0.1);
+                filter: brightness(0.95);
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(0, 255, 55, 1), 0 0 25px rgba(255, 255, 255, 0.8);
+                filter: brightness(1.5);
+            }
+        }
+
+        #result {
+            margin-top: 18px;
+        }
+
+        .code-output-container {
+            border: 1px dashed rgba(0, 255, 55, 0.4);
+            border-radius: 10px;
+            padding: 14px;
+            color: rgba(0, 255, 55, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.6);
+            min-height: 50px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .code-display {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 55, 0.6);
+            letter-spacing: 4px;
+            border: 1px solid var(--neon-green);
+            background: rgba(0, 255, 55, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .bottom-copy-action {
+            width: 60%;
+            margin: 18px auto 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 55, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--neon-green);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 2px 2px 3px rgba(0,0,0,1);
+        }
+
+        footer span {
+            color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile-container">
+            <div class="avatar-glow">
+                <img src="https://i.imgur.com/8QzQpXm.png" alt="Profile Mask Logo">
+            </div>
+            <h1>Faizan-Md<span class="heart-emoji">🫀</span></h1>
+            <div class="sub-title">Link your WhatsApp device</div>
+        </div>
+
+        <div class="social-row">
+            <a href="#" class="social-box yt"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-box fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-box wa"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-box gh"><i class="fab fa-github"></i></a>
+        </div>
+
+        <div class="pair-code-label-box">
+            <i class="fas fa-search"></i> Pair Code
+        </div>
+
+        <label class="form-label">Enter your WhatsApp number with country code</label>
+        <div class="input-wrapper">
+            <i class="fas fa-phone-alt"></i>
+            <input type="text" id="number" placeholder="+923266105873" autocomplete="off">
+        </div>
+
+        <button class="generate-btn" onclick="getCode()">
+            <i class="fas fa-key"></i> Generate Pair Code
+        </button>
+
+        <div id="result">
+            <div class="code-output-container">
+                <i class="fas fa-shield-alt"></i> Your pair code will appear here
+            </div>
+        </div>
+
+        <button class="bottom-copy-action" onclick="triggerPlaceholderCopy()">
+            <i class="far fa-copy"></i> Copy Code
+        </button>
+
+        <footer>© 2026 <span>faizan-md.</span> All rights reserved.</footer>
+    </div>
+
+    <script>
+        async function getCode() {
+            const numberInput = document.getElementById("number");
+            const resDiv = document.getElementById("result");
+            const num = numberInput.value.replace(/[^0-9]/g, '');
+
+            if (!num) {
+                resDiv.innerHTML = "<div class='code-output-container' style='color:#ff0055; border-color:#ff0055;'><i class='fas fa-exclamation-triangle'></i> [ERROR] INPUT REQUIRED</div>";
+                numberInput.style.borderColor = "#ff0055";
+                return;
+            }
+
+            numberInput.style.borderColor = "rgba(0, 255, 55, 0.4)";
+            resDiv.innerHTML = '<div class="code-output-container"><div class="loader"></div><span>ESTABLISHING HANDSHAKE...</span></div>';
+
+            try {
+                const req = await fetch(`/code?number=${num}`);
+                const data = await req.json();
+
+                if (data.code) {
+                    resDiv.innerHTML = `<div class="code-display" onclick="copyCode('${data.code}')">${data.code}</div>`;
+                    window.currentGeneratedCode = data.code;
+                } else if (data.status === 'already_connected') {
+                    resDiv.innerHTML = "<div class='code-output-container' style='color:#00ff37; border-color:#00ff37;'><i class='fas fa-check-circle'></i> [SYSTEM] ALREADY LINKED</div>";
+                } else {
+                    resDiv.innerHTML = "<div class='code-output-container' style='color:#ff0055; border-color:#ff0055;'><i class='fas fa-times-circle'></i> [ERROR] CONNECTION FAILED</div>";
+                }
+            } catch (e) {
+                resDiv.innerHTML = "<div class='code-output-container' style='color:#ff0055; border-color:#ff0055;'><i class='fas fa-wifi'></i> [CRITICAL] SERVER UNREACHABLE</div>";
+            }
+        }
+
+        defineCodeCopy = function(code) {
+            navigator.clipboard.writeText(code);
+            const display = document.querySelector('.code-display');
+            if(!display) return;
+            const originalText = display.innerText;
+            
+            display.innerText = "COPIED";
+            display.style.borderColor = "#00ff37";
+            display.style.color = "#00ff37";
+            
+            setTimeout(() => {
+                display.innerText = originalText;
+                display.style.borderColor = "var(--neon-green)";
+                display.style.color = "var(--neon-green)";
+            }, 1500);
+        }
+        function copyCode(code) { defineCodeCopy(code); }
+
+        function triggerPlaceholderCopy() {
+            if(window.currentGeneratedCode) {
+                copyCode(window.currentGeneratedCode);
+            } else {
+                alert("No code generated yet to copy!");
+            }
+        }
+    </script>
+</body>
+</html>
