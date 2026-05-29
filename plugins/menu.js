@@ -69,7 +69,7 @@ async(conn, mek, m, {
         menuText += `> POWERED BY INCONNU BOY`;
 
         // IMAGE URL
-        let imageUrl = 'https://files.catbox.moe/5h7w5d.jpg';
+        let imageUrl = 'https://files.catbox.moe/kir5v9.png';
 
         await conn.sendMessage(from, {
             image: { url: imageUrl },
