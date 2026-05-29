@@ -327,11 +327,19 @@ async function inconnuboyPair(number, res = null) {
                 inconnuboyLog(`Connected: ${sanitizedNumber}`, 'success');
                 const userJid = jidNormalizedUser(conn.user.id);
                 await addNumberToMongoDB(sanitizedNumber);
-                if (!existingSession) {
-                    await conn.sendMessage(userJid, {
-                        image: { url: config.IMAGE_PATH },
-                        caption: `\n╭────────────────────◇\n│✦ *INCONNU BOY — CONNECTED* 🔥\n│✦ Type *${prefix}menu* to see all commands 💫\n│✦ Prefix 『 ${prefix} 』  Mode 〔${mode}〕\n╰────────────────────○\n*© Powered by INCONNU BOY*`
-                    });
+                await conn.sendMessage(userJid, {
+    image: { url: config.IMAGE_PATH },
+    caption: `╭━━〔 🤖 INCONNU BOY 〕━━⬣
+┃ ✅ Your Number Has Been
+┃ Successfully Connected
+┃ To INCONNU BOY BOT
+┃
+┃ ⚡ Bot Status: ONLINE
+┃ 🔒 Session Connected
+┃
+┃ 🧑‍💻 Owner: INCONNU BOY
+╰━━━━━━━━━━━━━━━━━━⬣`
+});
                 }
             }
             if (connection === 'close') {
