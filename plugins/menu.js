@@ -1,48 +1,36 @@
 const { cmd, commands } = require('../inconnuboy');
-const { getUserConfigFromMongoDB } = require('../lib/database');
 const config = require('../config');
-const os = require('os');
 
 cmd({
-    pattern: 'menu',
-    alias: ['help', 'cmds', 'commands'],
-    desc: 'Show all commands by category',
-    category: 'general',
-    react: '📋'
-}, async (conn, mek, m, { from, sender, isOwner, reply }) => {
+    pattern: "menu",
+    desc: "Show bot menu",
+    category: "main",
+    react: "📜"
+},
+async(conn, mek, m, {
+    from, pushname, reply
+}) => {
     try {
-        const number = sender.split('@')[0];
-        const userConfig = await getUserConfigFromMongoDB(number);
 
-        // Group commands by category
-        const categories = {};
-        for (const cmd of commands) {
-            if (cmd.dontAddCommandList) continue;
-            const cat = (cmd.category || 'misc').toLowerCase();
-            if (!categories[cat]) categories[cat] = [];
-            categories[cat].push(cmd);
-        }
-
-        const categoryEmojis = {
-            general: '🌐',
-            group: '👥',
-            settings: '⚙️',
-            owner: '👑',
-            tools: '🔧',
-            fun: '🎭',
-            media: '🎬',
-            misc: '📦'
-        };
-
+        // Uptime
         const uptime = process.uptime();
         const hours = Math.floor(uptime / 3600);
         const minutes = Math.floor((uptime % 3600) / 60);
         const seconds = Math.floor(uptime % 60);
 
+        // USER CONFIG
+        const userConfig = {
+            AUTO_VIEW_STATUS: "true",
+            ANTI_CALL: "true",
+            AUTO_RECORDING: "false",
+            AUTO_TYPING: "true",
+            READ_MESSAGE: "true"
+        };
+
         let menuText = `╭──────────────────────◇\n`;
         menuText += `│  *🤖 INCONNU BOY — MENU*\n`;
         menuText += `│──────────────────────\n`;
-        menuText += `│ 👤 User: ${m.pushName || 'User'}\n`;
+        menuText += `│ 👤 User: ${pushname || 'User'}\n`;
         menuText += `│ ⚡ Prefix: [ ${config.PREFIX} ]\n`;
         menuText += `│ 🕐 Uptime: ${hours}h ${minutes}m ${seconds}s\n`;
         menuText += `│ 🔌 Mode: ${config.WORK_TYPE || 'public'}\n`;
@@ -55,28 +43,41 @@ cmd({
         menuText += `│ ✅ Auto Read: ${userConfig.READ_MESSAGE === 'true' ? 'ON ✅' : 'OFF ❌'}\n`;
         menuText += `╰──────────────────────◇\n\n`;
 
-        // List commands per category
-        const catOrder = ['general', 'group', 'settings', 'owner', 'tools', 'fun', 'media', 'misc'];
-        const sortedCats = [...catOrder.filter(c => categories[c]), ...Object.keys(categories).filter(c => !catOrder.includes(c))];
+        // COMMANDS LIST
+        menuText += `╭───❖ GENERAL COMMANDS ❖\n`;
+        menuText += `│ .ping\n`;
+        menuText += `│ .alive\n`;
+        menuText += `│ .menu\n`;
+        menuText += `│ .owner\n`;
+        menuText += `╰────────────────────◇\n\n`;
 
-        for (const cat of sortedCats) {
-            if (!categories[cat] || !categories[cat].length) continue;
-            const emoji = categoryEmojis[cat] || '📦';
-            menuText += `╭─── ${emoji} *${cat.toUpperCase()}* ───\n`;
-            for (const c of categories[cat]) {
-                menuText += `│ ${config.PREFIX}${c.pattern}${c.desc ? ' — ' + c.desc : ''}\n`;
-            }
-            menuText += `╰────────────────────◇\n\n`;
-        }
+        menuText += `╭───❖ DOWNLOAD COMMANDS ❖\n`;
+        menuText += `│ .song\n`;
+        menuText += `│ .video\n`;
+        menuText += `│ .ytmp3\n`;
+        menuText += `│ .ytmp4\n`;
+        menuText += `╰────────────────────◇\n\n`;
 
-        menuText += `> *© Powered by INCONNU BOY*`;
+        menuText += `╭───❖ GROUP COMMANDS ❖\n`;
+        menuText += `│ .tagall\n`;
+        menuText += `│ .kick\n`;
+        menuText += `│ .add\n`;
+        menuText += `│ .promote\n`;
+        menuText += `│ .demote\n`;
+        menuText += `╰────────────────────◇\n\n`;
+
+        menuText += `> POWERED BY INCONNU BOY`;
+
+        // IMAGE URL
+        let imageUrl = 'https://files.catbox.moe/5h7w5d.jpg';
 
         await conn.sendMessage(from, {
-            image: { url: config.IMAGE_PATH },
+            image: { url: imageUrl },
             caption: menuText
         }, { quoted: mek });
 
     } catch (e) {
-        reply('*❌ Menu error: ' + e.message + '*');
+        console.log(e);
+        reply(`${e}`);
     }
 });
