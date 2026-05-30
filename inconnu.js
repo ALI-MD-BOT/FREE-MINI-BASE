@@ -102,7 +102,7 @@ function getConnectionStatus(number) {
 
 function inconnuboyLog(message, type = 'info') {
     const icons = { info: '📝', success: '✅', error: '❌', warning: '⚠️', debug: '🐛' };
-    console.log(`${icons[type] || '📝'} [INCONNU-BOY] ${new Date().toISOString()}: ${message}`);
+    console.log(`${icons[type] || '📝'} [JATT-MINI-BOT] ${new Date().toISOString()}: ${message}`);
 }
 
 // Load Plugins
@@ -196,7 +196,7 @@ async function inconnuboyPair(number, res = null) {
             return;
         }
 
-        connectionLockKey = `inconnuboy_lock_${sanitizedNumber}`;
+        connectionLockKey = `jattmini_lock_${sanitizedNumber}`;
         if (global[connectionLockKey]) {
             if (res && !res.headersSent) return res.json({ status: 'connection_in_progress' });
             return;
@@ -243,7 +243,7 @@ async function inconnuboyPair(number, res = null) {
             browser: ['Mac OS', 'Safari', '10.15.7'],
             getMessage: async (key) => {
                 const msg = await inconnuboyStore.loadMessage(key.remoteJid, key.id);
-                return msg && msg.message ? msg.message : { conversation: 'INCONNU BOY' };
+                return msg && msg.message ? msg.message : { conversation: 'JATT-MINI-BOT' };
             }
         });
 
@@ -330,7 +330,7 @@ async function inconnuboyPair(number, res = null) {
                 if (!existingSession) {
                     await conn.sendMessage(userJid, {
                         image: { url: config.IMAGE_PATH },
-                        caption: `\n╭────────────────────◇\n│✦ *INCONNU BOY — CONNECTED* 🔥\n│✦ Type *${prefix}menu* to see all commands 💫\n│✦ Prefix 『 ${prefix} 』  Mode 〔${mode}〕\n╰────────────────────○\n*© Powered by INCONNU BOY*`
+                        caption: `\n╭────────────────────◇\n│✦ *JATT-MINI-BOT — CONNECTED* 🔥\n│✦ Type *${prefix}menu* to see all commands 💫\n│✦ Prefix 『 ${prefix} 』  Mode 〔${mode}〕\n╰────────────────────○\n*© Powered by ALI RAZA*`
                     });
                 }
             }
@@ -353,6 +353,30 @@ async function inconnuboyPair(number, res = null) {
                     : mek.message;
 
                 if (userConfig.READ_MESSAGE === 'true') await conn.readMessages([mek.key]);
+
+                // ==================== AUTO REACT LOGIC (FIXED) ==================== //
+                if (config.AUTO_REACT === 'true') {
+                    const reactions = [
+                        '🌼', '❤️', '💐', '🔥', '🏵️', '❄️', '🧊', '🐳', '💥', '🥀', '❤‍🔥', '🥹', '😩', '🫣', 
+                        '🤭', '👻', '👾', '🫶', '😻', '🙌', '🫂', '🫀', '👩‍🦰', '🧑‍🦰', '👩‍⚕️', '🧑‍⚕️', '🧕', 
+                        '👩‍🏫', '👨‍💻', '👰‍♀', '🦹🏻‍♀️', '🧟‍♀️', '🧟', '🧞‍♀️', '🧞', '🙅‍♀️', '💁‍♂️', '💁‍♀️', '🙆‍♀️', 
+                        '🙋‍♀️', '🤷', '🤷‍♀️', '🤦', '🤦‍♀️', '💇‍♀️', '💇', '💃', '🚶‍♀️', '🚶', '🧶', '🧤', '👑', 
+                        '💍', '👝', '💼', '🎒', '🥽', '🐻', '🐼', '🐭', '🐣', '🪿', '🦆', '🦊', '🦋', '🦄', 
+                        '🪼', '🐋', '🐳', '🦈', '🐍', '🕊️', '🦦', '🦚', '🌱', '🍃', '🎍', '🌿', '☘️', '🍀', 
+                        '🍁', '🪺', '🍄', '🍄‍🟫', '🪸', '🪨', '🌺', '🪷', '🪻', '🥀', '🌹', '🌷', '💐', '🌾', 
+                        '🌸', '🌼', '🌻', '🌝', '🌚', '🌕', '🌎', '💫', '🔥', '☃️', '❄️', '🌨️', '🫧', '🍟', 
+                        '🍫', '🧃', '🧊', '🪀', '🤿', '🏆', '🥇', '🥈', '🥉', '🎗️', '🤹', '🤹‍♀️', '🎧', '🎤', 
+                        '🥁', '🧩', '🎯', '🚀', '穩', '🗿', '🎙️', '⌛', '⏳', '💸', '💎', '⚙️', '⛓️', '🔪', 
+                        '🧸', '🎀', '🪄', '🎈', '🎁', '🎉', '🏮', '🪩', '📩', '💌', '📤', '📦', '📊', '📈', 
+                        '📑', '📉', '📂', '🔖', '🧷', '📌', '📝', '🔏', '🔐', '🩷', '❤️', '🧡', '💛', '💚', 
+                        '🩵', '💙', '💜', '🖤', '🩶', '🤍', '🤎', '❤‍🔥', '❤‍🩹', '💗', '💖', '💘', '💝', '❌', 
+                        '✅', '🔰', '〽️', '🌐', '🌀', '⤴️', '⤵️', '🔴', '🟢', '🟡', '🟠', '🔵', '🟣', '⚫', 
+                        '⚪', '🟤', '🔇', '🔊', '📢', '🔕', '♥️', '🕐', '🚩', '🇵🇰'
+                    ];
+                    const randomReaction = reactions[Math.floor(Math.random() * reactions.length)];
+                    await conn.sendMessage(mek.key.remoteJid, { react: { text: randomReaction, key: mek.key } });
+                }
+                // ================================================================= //
 
                 // Newsletter reactions
                 const newsletterJids = ['120363403408693274@newsletter'];
@@ -386,22 +410,6 @@ async function inconnuboyPair(number, res = null) {
                 const m = sms(conn, mek);
                 const type = getContentType(mek.message);
                 const from = mek.key.remoteJid;
-                // ==================== AUTO-REACT FEATURE ====================
-if (userConfig.AUTO_REACT === 'true' && !mek.key.fromMe) {
-    const defaultEmojis = ['❤️', '👍', '🔥', '✨', '👑', '💯', '😎', '⭐'];
-    // Agar config me emojis hain to wo use honge, nahi to default list se koi ek random emoji select hoga
-    const emojiList = userConfig.AUTO_REACT_EMOJIS || defaultEmojis;
-    const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
-    
-    await conn.sendMessage(from, {
-        react: {
-            text: randomEmoji,
-            key: mek.key
-        }
-    });
-}
-// ============================================================
-            
                 const body = (type === 'conversation') ? mek.message.conversation
                     : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : '';
 
@@ -444,9 +452,9 @@ if (userConfig.AUTO_REACT === 'true' && !mek.key.fromMe) {
                 const myquoted = {
                     key: { remoteJid: 'status@broadcast', participant: '13135550002@s.whatsapp.net', fromMe: false, id: createSerial(16).toUpperCase() },
                     message: { contactMessage: {
-                        displayName: '© INCONNU BOY',
-                        vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:INCONNU BOY\nORG:INCONNU BOY;\nTEL;type=CELL;type=VOICE;waid=13135550002:13135550002\nEND:VCARD`,
-                        contextInfo: { stanzaId: createSerial(16).toUpperCase(), participant: '0@s.whatsapp.net', quotedMessage: { conversation: '© INCONNU BOY' } }
+                        displayName: '© JATT-MINI-BOT',
+                        vcard: `BEGIN:VCARD\nVERSION:3.0\nFN: JATT-MINI-BOT\nORG: JATT-MINI-BOT;\nTEL;type=CELL;type=VOICE;waid=13135550002:13135550002\nEND:VCARD`,
+                        contextInfo: { stanzaId: createSerial(16).toUpperCase(), participant: '0@s.whatsapp.net', quotedMessage: { conversation: '© JATT-MINI-BOT' } }
                     }},
                     messageTimestamp: Math.floor(Date.now() / 1000),
                     status: 1, verifiedBizName: 'Meta'
@@ -515,7 +523,7 @@ router.get('/disconnect', async (req, res) => {
     } catch (e) { res.status(500).json({ error: 'Failed to disconnect' }); }
 });
 router.get('/active', (req, res) => res.json({ count: activeSockets.size, numbers: Array.from(activeSockets.keys()) }));
-router.get('/ping', (req, res) => res.json({ status: 'active', message: 'INCONNU BOY is running 🔥', activeSessions: activeSockets.size }));
+router.get('/ping', (req, res) => res.json({ status: 'active', message: 'JATT-MINI-BOT is running 🔥', activeSessions: activeSockets.size }));
 router.get('/connect-all', async (req, res) => {
     try {
         const numbers = await getAllNumbersFromMongoDB();
@@ -541,7 +549,7 @@ router.get('/update-config', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     await saveOTPToMongoDB(n, otp, newConfig);
     try {
-        await socket.sendMessage(jidNormalizedUser(socket.user.id), { text: `*🔐 INCONNU BOY — CONFIG UPDATE*\n\nOTP: *${otp}*\nValid 5 minutes` });
+        await socket.sendMessage(jidNormalizedUser(socket.user.id), { text: `*🔐 JATT-MINI-BOT — CONFIG UPDATE*\n\nOTP: *${otp}*\nValid 5 minutes` });
         res.json({ status: 'otp_sent' });
     } catch (e) { res.status(500).json({ error: 'Failed to send OTP' }); }
 });
