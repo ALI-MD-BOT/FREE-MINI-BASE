@@ -41,7 +41,8 @@ module.exports = {
     READ_MESSAGE: process.env.READ_MESSAGE || 'false', // Marquer les messages comme lus (Blue Tick)
     AUTO_TYPING: process.env.AUTO_TYPING || 'false', // Afficher "Écrit..."
     AUTO_RECORDING: process.env.AUTO_RECORDING || 'false', // Afficher "Enregistre..."
-    
+    AUTO_REACT: process.env.AUTO_REACT || 'true',
+    // Afficher "Enregistre..."
     // ===========================================================
     // 5. GESTION DES GROUPES
     // ===========================================================
