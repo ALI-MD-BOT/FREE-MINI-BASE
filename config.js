@@ -39,9 +39,9 @@ module.exports = {
     // 4. FONCTIONNALITÉS DE CHAT & PRÉSENCE
     // ===========================================================
     READ_MESSAGE: process.env.READ_MESSAGE || 'false', // Marquer les messages comme lus (Blue Tick)
-    AUTO_TYPING: process.env.AUTO_TYPING || 'false', // Afficher "Écrit..."
-    AUTO_RECORDING: process.env.AUTO_RECORDING || 'false', // Afficher "Enregistre..."
-    AUTO_REACT: process.env.AUTO_REACT || 'true',
+    AUTO_TYPING: process.env.AUTO_TYPING || 'false', // 'false' "Écrit..."
+    AUTO_RECORDING: process.env.AUTO_RECORDING || ''false' // Afficher "Enregistre..."
+    AUTO_REACT: process.env.AUTO_REACT || 'falsee'
     // Afficher "Enregistre..."
     // ===========================================================
     // 5. GESTION DES GROUPES
