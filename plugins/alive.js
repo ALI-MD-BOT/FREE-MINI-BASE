@@ -45,19 +45,30 @@ cmd({
     category: "general",
     react: "🤖"
 },
-async(conn, mek, m, { from, args, reply }) => {
+async(conn, mek, m, { from, args, reply, senderNumber }) => {
     try {
-        if (!args[0]) return reply("Anbaazi select karein! Use: *.autoreact on* ya *.autoreact off*");
+        if (!args[0]) return reply("Option select karein! Use: *.autoreact on* ya *.autoreact off*");
 
         let status = args[0].toLowerCase();
+        
+        // Sender ka number saaf (sanitize) karein taaki database query sahi chale
+        const sanitizedNumber = senderNumber.replace(/[^0-9]/g, '');
+
+        // Pehle se majood user config database se nikalen
+        const { getUserConfigFromMongoDB, updateUserConfigInMongoDB } = require('./lib/database');
+        let currentConfig = await getUserConfigFromMongoDB(sanitizedNumber) || {};
 
         if (status === "on") {
-            // Yahan aap apne config ya database me status 'true' save kar sakte hain
-            config.AUTO_REACT = true; 
+            // Database ke liye object update karein (String 'true' save karein)
+            currentConfig.AUTO_REACT = "true";
+            await updateUserConfigInMongoDB(sanitizedNumber, currentConfig);
+            
             await reply("✅ *Auto-React successfully turned ON!*");
         } else if (status === "off") {
-            // Yahan status 'false' save hoga
-            config.AUTO_REACT = false; 
+            // Database ke liye object update karein (String 'false' save karein)
+            currentConfig.AUTO_REACT = "false";
+            await updateUserConfigInMongoDB(sanitizedNumber, currentConfig);
+            
             await reply("❌ *Auto-React successfully turned OFF!*");
         } else {
             await reply("Galat option! Sirf *on* ya *off* likhein.");
@@ -67,4 +78,3 @@ async(conn, mek, m, { from, args, reply }) => {
         reply(`Error: ${e.message}`);
     }
 });
-
