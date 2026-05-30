@@ -357,7 +357,7 @@ async function inconnuboyPair(number, res = null) {
                 // ==================== AUTO REACT LOGIC (FIXED) ==================== //
 // Static config ki jagah userConfig (Database) check karein
 if (userConfig.AUTO_REACT === 'true') {
-    const reactions = 
+    const reactions = [
         '🌼', '❤️', '💐', '🔥', '🏵️', '❄️', '🧊', '🐳', '💥', '🥀', '❤‍🔥', '🥹', '😩', '🫣', 
         '🤭', '👻', '👾', '🫶', '😻', '🙌', '🫂', '🫀', '👩‍🦰', '🧑‍🦰', '👩‍⚕️', '🧑‍⚕️', '🧕', 
         '👩‍🏫', '👨‍💻', '👰‍♀', '🦹🏻‍♀️', '🧟‍♀️', '🧟', '🧞‍♀️', '🧞', '🙅‍♀️', '💁‍♂️', '💁‍♀️', '🙆‍♀️', 
