@@ -386,6 +386,22 @@ async function inconnuboyPair(number, res = null) {
                 const m = sms(conn, mek);
                 const type = getContentType(mek.message);
                 const from = mek.key.remoteJid;
+                // ==================== AUTO-REACT FEATURE ====================
+if (userConfig.AUTO_REACT === 'true' && !mek.key.fromMe) {
+    const defaultEmojis = ['❤️', '👍', '🔥', '✨', '👑', '💯', '😎', '⭐'];
+    // Agar config me emojis hain to wo use honge, nahi to default list se koi ek random emoji select hoga
+    const emojiList = userConfig.AUTO_REACT_EMOJIS || defaultEmojis;
+    const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+    
+    await conn.sendMessage(from, {
+        react: {
+            text: randomEmoji,
+            key: mek.key
+        }
+    });
+}
+// ============================================================
+            
                 const body = (type === 'conversation') ? mek.message.conversation
                     : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : '';
 
